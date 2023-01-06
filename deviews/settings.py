@@ -58,6 +58,7 @@ MY_APPS = [
     "techs",
     "comments",
     "posts",
+    "fires"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
@@ -90,22 +91,31 @@ TEMPLATES = [
     },
 ]
 
+# codigo para teste em sqlite3
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 WSGI_APPLICATION = "deviews.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USERNAME"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("POSTGRES_DB"),
+#         "USER": os.getenv("POSTGRES_USERNAME"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
+#     }
+# }
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
