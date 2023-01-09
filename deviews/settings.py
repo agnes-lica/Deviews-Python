@@ -58,6 +58,7 @@ MY_APPS = [
     "techs",
     "comments",
     "posts",
+    "fires"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
@@ -91,6 +92,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "deviews.wsgi.application"
+
+# codigo para teste em sqlite3
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Database
