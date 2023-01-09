@@ -6,7 +6,8 @@ from django.shortcuts import get_object_or_404
 from users.permissions import IsAccountOwner, IsAccountOwnerOrdAdm
 from .models import Comment
 from .serializers import CommentSerializer
-from post.models import Post
+from posts.models import Post
+
 
 
 class commentsView(generics.CreateAPIView):
