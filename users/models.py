@@ -4,8 +4,11 @@ from django.db import models
 
 class User(AbstractUser):
     name = models.CharField(max_length=50)
-    user_name = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=254, unique=True)
-    bio = models.TextField(max_length=255)
-    profile_picture = models.CharField()
-    is_active = models.BooleanField(default=True)
+    bio = models.TextField(max_length=255, null=True)
+    profile_picture = models.URLField(
+        default="https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
