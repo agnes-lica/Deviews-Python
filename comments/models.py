@@ -5,7 +5,7 @@ class Comment(models.Model):
     class Meta:
         ordering = ["id"]
 
-    content = models.CharField(max_length=255, blank=False, null=False)
+    content = models.CharField(max_length=255)  # , blank=False, null=False
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -9,7 +9,6 @@ from .serializers import CommentSerializer
 from posts.models import Post
 
 
-
 class commentsView(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAccountOwner]
