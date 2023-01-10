@@ -46,7 +46,13 @@ class PostUserDetailViews(generics.RetrieveAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+
+    def get_queryset(self):
+        return Post.objects.all().filter(user_id=self.kwargs["pk"]).values()
+
+        
+    # queryset = Post.objects.filter(user=self.request.user)
+    # queryset = Post.objects.all().filter(user_id = self.kwargs["pk"])
 
     # def retrieve(self, request, *args, **kwargs):
 
