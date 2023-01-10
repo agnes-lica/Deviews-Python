@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 
 
 class UserSerializer(serializers.ModelSerializer):
+    techs = TechSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -42,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
             },
             
         }
-        # depth = 1
+        depth = 1
 
     def create(self, validated_data):
         print(validated_data)
