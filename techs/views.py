@@ -8,7 +8,7 @@ from rest_framework.views import Response, Request, status
 
 class TechView(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdm]
+    # permission_classes = [IsAdm]
 
     queryset = Tech.objects.all()
     serializer_class = TechSerializer
