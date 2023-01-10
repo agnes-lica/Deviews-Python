@@ -9,6 +9,6 @@ urlpatterns = [
     path("users/login/", jwt_views.TokenObtainPairView.as_view()),
     path("users/list/", views.UsersListView.as_view()),
     path("users/search/", views.UsersSearchView.as_view()),
-    path("users/search/<int:pk>", views.UserSearchView.as_view()),
+    path("users/search/<int:pk>/", views.UserSearchView.as_view()),
     path("users/isactive/<int:pk>/", views.UserIsActiveView.as_view()),
 ]
