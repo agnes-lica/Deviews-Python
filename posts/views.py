@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from .serializers import PostSerializer
 from .models import Post
 from users.models import User
+from techs.models import Tech
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from users.permissions import IsAccountOwnerOrdAdm
 
@@ -16,27 +17,13 @@ class PostView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         user_obj = get_object_or_404(User, id = self.request.user.id)
-        serializer.save(user=user_obj)
+        tech_obj = get_object_or_404(Tech, id = self.request.data["tech"])
+        serializer.save(user=user_obj, tech=tech_obj)
 
 
-class PostUpdateView(generics.UpdateAPIView):
+class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAccountOwnerOrdAdm]
-
-    serializer_class = PostSerializer
-    queryset = Post
-
-
-class PostDestroyView(generics.RetrieveDestroyAPIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAccountOwnerOrdAdm]
-
-    serializer_class = PostSerializer
-    queryset = Post
-
-
-class PostDetailView(generics.RetrieveAPIView):
-    authentication_classes = [JWTAuthentication]
 
     serializer_class = PostSerializer
     queryset = Post.objects.all()
