@@ -1,13 +1,19 @@
 from rest_framework import serializers
 from .models import FirePost, FireComments
+from posts.serializers import PostSerializer
+from users.serializers import UserSerializer
 
 class FirePostSerializer(serializers.ModelSerializer):
+    # user = UserSerializer()
+    # post = PostSerializer()
+    
     class Meta:
         model = FirePost
-        fields = ["id", "user_id", "post_id", "exists"]
-        read_only_fields = ["id", "user_id", "post_id", "exists"]
+        fields = ["id", "user", "post", "exists"]
+        read_only_fields = ["id", "exists"]
 
     def create(self, validated_data):
+        print(validated_data)
         fire = FirePost.objects.get_or_create(**validated_data)
 
         if not fire[1]:
@@ -19,8 +25,8 @@ class FirePostSerializer(serializers.ModelSerializer):
 class FireCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = FireComments
-        fields = ["id", "user_id", "comment_id", "exists"]
-        read_only_fields = ["id", "user_id", "comment_id", "exists"]
+        fields = ["id", "user", "comment", "exists"]
+        read_only_fields = ["id", "exists"]
 
     def create(self, validated_data):
         fire = FireComments.objects.get_or_create(**validated_data)

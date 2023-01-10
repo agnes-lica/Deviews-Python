@@ -14,9 +14,9 @@ class PostView(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
-    # def perform_create(self, serializer):
-    #     user_obj = get_object_or_404(User, pk=self.kwargs["pk"])
-    #     serializer.save(user=user_obj)
+    def perform_create(self, serializer):
+        user_obj = get_object_or_404(User, id = self.request.user.id)
+        serializer.save(user=user_obj)
 
 
 class PostUpdateView(generics.UpdateAPIView):

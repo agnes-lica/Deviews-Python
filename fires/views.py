@@ -3,14 +3,22 @@ from django.shortcuts import get_object_or_404
 from .serializers import FirePostSerializer, FireCommentSerializer
 from posts.models import Post
 from comments.models import Comment
+from users.permissions import IsAccountOwnerOrdAdm
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 
 class FirePostView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAccountOwnerOrdAdm]
+
     def post(self, request: Request, post_id: int) -> Response:
-        post = get_object_or_404(Post, id=post_id)
-        request.data["post"] = post
-        request.data["user"] = request.user
+        # post = get_object_or_404(Post, id=post_id)
+        request.data["post"] = post_id
+        request.data["user"] = request.user.id
+        # print(request.data)
         serializer = FirePostSerializer(data=request.data)
+        print(serializer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
