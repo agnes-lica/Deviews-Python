@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from techs.models import Tech
 
 
 class User(AbstractUser):
@@ -12,5 +13,6 @@ class User(AbstractUser):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    techs = models.ManyToManyField(Tech, related_name="users")
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

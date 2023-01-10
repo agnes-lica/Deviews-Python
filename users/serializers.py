@@ -2,11 +2,14 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from .models import User
+from techs.models import Tech
+from techs.serializers import TechSerializer
+from django.shortcuts import get_object_or_404
 
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
 
+    class Meta:
         model = User
         fields = [
             "id",
@@ -20,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
             "is_superuser",
             "created_at",
             "updated_at",
+            "techs"
         ]
         read_only_fields = ["is_active"]
         extra_kwargs = {
@@ -36,14 +40,22 @@ class UserSerializer(serializers.ModelSerializer):
                     UniqueValidator(User.objects.all(), "This field must be unique.")
                 ]
             },
+            
         }
+        # depth = 1
 
     def create(self, validated_data):
         print(validated_data)
+        techs = validated_data.pop("techs")
+
         if validated_data.get("is_superuser"):
             user = User.objects.create_superuser(**validated_data)
-            return user
-        return User.objects.create_user(**validated_data)
+        else:
+            user = User.objects.create_user(**validated_data)
+            
+        user.techs.set(techs)
+        
+        return user
 
     def update(self, instance: User, validated_data: dict) -> User:
         for key, value in validated_data.items():
