@@ -1,12 +1,8 @@
 from rest_framework import serializers
 from .models import FirePost, FireComments
-from posts.serializers import PostSerializer
-from users.serializers import UserSerializer
+
 
 class FirePostSerializer(serializers.ModelSerializer):
-    # user = UserSerializer()
-    # post = PostSerializer()
-    
     class Meta:
         model = FirePost
         fields = ["id", "user", "post", "exists"]

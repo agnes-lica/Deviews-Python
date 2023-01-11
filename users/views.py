@@ -6,12 +6,14 @@ from .models import User
 from .permissions import IsAccountOwnerOrdAdm, IsAdm, IsLogged
 from .serializers import UserIsActiveSerializer, UserListSerializer, UserSerializer
 
-from techs.models import Tech
+from .models import User
 
 class UserView(generics.CreateAPIView):
     serializer_class = UserSerializer
-    queryset = Tech.objects.all()
-
+    queryset = User.objects.all()
+    
+    def perform_create(self, serializer):
+        serializer.save(techs=self.request.data["techs"])
 
 #  def post(self, request: Request) -> Response:
 #         # techs = [TechSerializer(get_object_or_404(Tech, id=tech)).data for tech in request.data["techs"]]

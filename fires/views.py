@@ -13,12 +13,9 @@ class FirePostView(APIView):
     permission_classes = [IsAccountOwnerOrdAdm]
 
     def post(self, request: Request, post_id: int) -> Response:
-        # post = get_object_or_404(Post, id=post_id)
         request.data["post"] = post_id
         request.data["user"] = request.user.id
-        # print(request.data)
         serializer = FirePostSerializer(data=request.data)
-        print(serializer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
@@ -28,10 +25,12 @@ class FirePostView(APIView):
         return Response({"message": "Fire"}, status.HTTP_201_CREATED)
 
 class FireCommentsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAccountOwnerOrdAdm]
+
     def post(self, request: Request, comment_id: int) -> Response:
-        comment = get_object_or_404(Comment, id=comment_id)
-        request.data["comment"] = comment
-        request.data["user"] = request.user
+        request.data["comment"] = comment_id
+        request.data["user"] = request.user.id
         serializer = FireCommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
