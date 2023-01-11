@@ -31,5 +31,8 @@ urlpatterns = [
     path('api/', include("posts.urls")),
     
     # Documents
-    path("api/docs/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
-]
+    # Acessa o download do schema
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Opcionais (escolha 1)
+    path('api/docs/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),]
