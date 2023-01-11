@@ -161,6 +161,13 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Deviews API",
+    "DESCRIPTION": "Deviews SocialMedia API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 2,
@@ -188,12 +195,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-SPECTACULAR_SETTINGS = {
-    "TITLE": "Deviews API",
-    "DESCRIPTION": "Deviews SocialMedia API",
-    "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,
-}
 
 AUTH_USER_MODEL = "users.User"
