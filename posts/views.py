@@ -29,20 +29,10 @@ class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
 
 
-class PostUserDetailViews(generics.RetrieveAPIView):
+class PostUserDetailViews(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        return Post.objects.all().filter(user_id=self.kwargs["pk"]).values()
-
-        
-    # queryset = Post.objects.filter(user=self.request.user)
-    # queryset = Post.objects.all().filter(user_id = self.kwargs["pk"])
-
-    # def retrieve(self, request, *args, **kwargs):
-
-    #     instance = get_object_or_404(User, pk=self.kwargs["pk"])
-    #     serializer = self.get_serializer(instance)
-    #     return Response(serializer.data)
+        return Post.objects.all().filter(user_id=self.kwargs["pk"])
